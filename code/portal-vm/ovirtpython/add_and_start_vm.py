@@ -23,8 +23,9 @@ print "Adding VM"
 templates = templates_service.list(search='name=ULL-CloudIDE-backend-tpl')
 template_id = None
 for template in templates:
-    if template.version.version_number == 5:
-        template_id = template.id
+    print('Template version {}, id: {}'.format(template.version.version_number, template.id))
+    template_id = template.id
+    if template.version.version_number == 6:
         break
 
 
@@ -80,7 +81,8 @@ vm_service.start(
                     ip=types.Ip(
                         version=types.IpVersion.V4,
                         address=sys.argv[2],
-                        netmask='255.255.255.0'
+                        netmask='255.255.255.0',
+                        gateway='10.6.134.50'
                     )
                 )
             ]
